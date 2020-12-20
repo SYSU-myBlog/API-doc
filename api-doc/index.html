@@ -732,6 +732,39 @@
     "name" : "Article"
   }
 };
+            defs["Comment"] = {
+  "required" : [ "Content", "Id", "Publisher" ],
+  "type" : "object",
+  "properties" : {
+    "Cid" : {
+      "type" : "string"
+    },
+    "Content" : {
+      "type" : "string"
+    },
+    "Publisher" : {
+      "type" : "string"
+    },
+    "Id" : {
+      "type" : "string"
+    }
+  }
+};
+            defs["Like"] = {
+  "required" : [ "Id", "Liker" ],
+  "type" : "object",
+  "properties" : {
+    "Lid" : {
+      "type" : "string"
+    },
+    "Liker" : {
+      "type" : "string"
+    },
+    "Id" : {
+      "type" : "string"
+    }
+  }
+};
             defs["ObjectID"] = {
   "type" : "object",
   "properties" : {
@@ -819,11 +852,37 @@
                     <li data-group="Article" data-name="getArticlesByTitlr" class="">
                       <a href="#api-Article-getArticlesByTitlr">getArticlesByTitlr</a>
                     </li>
+                    <li data-group="Article" data-name="getPage" class="">
+                      <a href="#api-Article-getPage">getPage</a>
+                    </li>
                     <li data-group="Article" data-name="modifyArticleWithForm" class="">
                       <a href="#api-Article-modifyArticleWithForm">modifyArticleWithForm</a>
                     </li>
                     <li data-group="Article" data-name="publishArticle" class="">
                       <a href="#api-Article-publishArticle">publishArticle</a>
+                    </li>
+                  <li class="nav-header" data-group="Comment"><a href="#api-Comment">API Methods - Comment</a></li>
+                    <li data-group="Comment" data-name="addComment" class="">
+                      <a href="#api-Comment-addComment">addComment</a>
+                    </li>
+                    <li data-group="Comment" data-name="deleteComment" class="">
+                      <a href="#api-Comment-deleteComment">deleteComment</a>
+                    </li>
+                    <li data-group="Comment" data-name="getCommentById" class="">
+                      <a href="#api-Comment-getCommentById">getCommentById</a>
+                    </li>
+                    <li data-group="Comment" data-name="modifyComment" class="">
+                      <a href="#api-Comment-modifyComment">modifyComment</a>
+                    </li>
+                  <li class="nav-header" data-group="Like"><a href="#api-Like">API Methods - Like</a></li>
+                    <li data-group="Like" data-name="getLikeById" class="">
+                      <a href="#api-Like-getLikeById">getLikeById</a>
+                    </li>
+                    <li data-group="Like" data-name="likeit" class="">
+                      <a href="#api-Like-likeit">likeit</a>
+                    </li>
+                    <li data-group="Like" data-name="unlikeit" class="">
+                      <a href="#api-Like-unlikeit">unlikeit</a>
                     </li>
                   <li class="nav-header" data-group="User"><a href="#api-User">API Methods - User</a></li>
                     <li data-group="User" data-name="getUserByUid" class="">
@@ -1278,7 +1337,7 @@ public class ArticleApiExample {
         
         ArticleApi apiInstance = new ArticleApi();
         try {
-            Article result = apiInstance.getAllArticles();
+            array[Article] result = apiInstance.getAllArticles();
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ArticleApi#getAllArticles");
@@ -1296,7 +1355,7 @@ public class ArticleApiExample {
     public static void main(String[] args) {
         ArticleApi apiInstance = new ArticleApi();
         try {
-            Article result = apiInstance.getAllArticles();
+            array[Article] result = apiInstance.getAllArticles();
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ArticleApi#getAllArticles");
@@ -1315,7 +1374,7 @@ ArticleApi *apiInstance = [[ArticleApi alloc] init];
 
 // Get all articles
 [apiInstance getAllArticlesWithCompletionHandler: 
-              ^(Article output, NSError* error) {
+              ^(array[Article] output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -1363,7 +1422,7 @@ namespace Example
             try
             {
                 // Get all articles
-                Article result = apiInstance.getAllArticles();
+                array[Article] result = apiInstance.getAllArticles();
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -1453,7 +1512,11 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/Article"
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/Article"
+        },
+        "x-content-type" : "application/json"
       }
     },
     "application/xml" : {
@@ -1965,7 +2028,7 @@ public class ArticleApiExample {
         ArticleApi apiInstance = new ArticleApi();
         String publisher = publisher_example; // String | user who is the publisher of the articles to return
         try {
-            Article result = apiInstance.getArticlesByPublisher(publisher);
+            array[Article] result = apiInstance.getArticlesByPublisher(publisher);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ArticleApi#getArticlesByPublisher");
@@ -1984,7 +2047,7 @@ public class ArticleApiExample {
         ArticleApi apiInstance = new ArticleApi();
         String publisher = publisher_example; // String | user who is the publisher of the articles to return
         try {
-            Article result = apiInstance.getArticlesByPublisher(publisher);
+            array[Article] result = apiInstance.getArticlesByPublisher(publisher);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ArticleApi#getArticlesByPublisher");
@@ -2004,7 +2067,7 @@ ArticleApi *apiInstance = [[ArticleApi alloc] init];
 
 // Get articles by publisher
 [apiInstance getArticlesByPublisherWith:publisher
-              completionHandler: ^(Article output, NSError* error) {
+              completionHandler: ^(array[Article] output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -2055,7 +2118,7 @@ namespace Example
             try
             {
                 // Get articles by publisher
-                Article result = apiInstance.getArticlesByPublisher(publisher);
+                array[Article] result = apiInstance.getArticlesByPublisher(publisher);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -2177,7 +2240,11 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/Article"
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/Article"
+        },
+        "x-content-type" : "application/json"
       }
     },
     "application/xml" : {
@@ -2327,7 +2394,7 @@ public class ArticleApiExample {
         ArticleApi apiInstance = new ArticleApi();
         String tag = tag_example; // String | tag required for the articles to return
         try {
-            Article result = apiInstance.getArticlesByTag(tag);
+            array[Article] result = apiInstance.getArticlesByTag(tag);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ArticleApi#getArticlesByTag");
@@ -2346,7 +2413,7 @@ public class ArticleApiExample {
         ArticleApi apiInstance = new ArticleApi();
         String tag = tag_example; // String | tag required for the articles to return
         try {
-            Article result = apiInstance.getArticlesByTag(tag);
+            array[Article] result = apiInstance.getArticlesByTag(tag);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ArticleApi#getArticlesByTag");
@@ -2366,7 +2433,7 @@ ArticleApi *apiInstance = [[ArticleApi alloc] init];
 
 // Get articles by tag
 [apiInstance getArticlesByTagWith:tag
-              completionHandler: ^(Article output, NSError* error) {
+              completionHandler: ^(array[Article] output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -2417,7 +2484,7 @@ namespace Example
             try
             {
                 // Get articles by tag
-                Article result = apiInstance.getArticlesByTag(tag);
+                array[Article] result = apiInstance.getArticlesByTag(tag);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -2539,7 +2606,11 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/Article"
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/Article"
+        },
+        "x-content-type" : "application/json"
       }
     },
     "application/xml" : {
@@ -2689,7 +2760,7 @@ public class ArticleApiExample {
         ArticleApi apiInstance = new ArticleApi();
         String title = title_example; // String | title required for the articles to return
         try {
-            Article result = apiInstance.getArticlesByTitlr(title);
+            array[Article] result = apiInstance.getArticlesByTitlr(title);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ArticleApi#getArticlesByTitlr");
@@ -2708,7 +2779,7 @@ public class ArticleApiExample {
         ArticleApi apiInstance = new ArticleApi();
         String title = title_example; // String | title required for the articles to return
         try {
-            Article result = apiInstance.getArticlesByTitlr(title);
+            array[Article] result = apiInstance.getArticlesByTitlr(title);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ArticleApi#getArticlesByTitlr");
@@ -2728,7 +2799,7 @@ ArticleApi *apiInstance = [[ArticleApi alloc] init];
 
 // Get articles by title
 [apiInstance getArticlesByTitlrWith:title
-              completionHandler: ^(Article output, NSError* error) {
+              completionHandler: ^(array[Article] output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -2779,7 +2850,7 @@ namespace Example
             try
             {
                 // Get articles by title
-                Article result = apiInstance.getArticlesByTitlr(title);
+                array[Article] result = apiInstance.getArticlesByTitlr(title);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -2901,7 +2972,11 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/Article"
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/Article"
+        },
+        "x-content-type" : "application/json"
       }
     },
     "application/xml" : {
@@ -2985,6 +3060,334 @@ except ApiException as e:
                                     </script>
                                   </div>
                                   <input id='responses-getArticlesByTitlr-400-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 404 - Not Found </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Article-getPage">
+                      <article id="api-Article-getPage-0" data-group="User" data-name="getPage" data-version="0">
+                        <div class="pull-left">
+                          <h1>getPage</h1>
+                          <p>Get one page of articles</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Return one page of articles</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/article/?page&#x3D;page&amp;eachPage&#x3D;eachPage</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Article-getPage-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Article-getPage-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Article-getPage-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Article-getPage-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Article-getPage-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Article-getPage-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Article-getPage-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Article-getPage-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Article-getPage-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Article-getPage-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Article-getPage-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Article-getPage-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X GET\
+-H "Accept: application/json,application/xml"\
+"https://myblog.swagger.io/v2/article/?page&#x3D;page&amp;eachPage&#x3D;eachPage"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Article-getPage-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.ArticleApi;
+
+import java.io.File;
+import java.util.*;
+
+public class ArticleApiExample {
+
+    public static void main(String[] args) {
+        
+        ArticleApi apiInstance = new ArticleApi();
+        try {
+            array[Article] result = apiInstance.getPage();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ArticleApi#getPage");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Article-getPage-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.ArticleApi;
+
+public class ArticleApiExample {
+
+    public static void main(String[] args) {
+        ArticleApi apiInstance = new ArticleApi();
+        try {
+            array[Article] result = apiInstance.getPage();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ArticleApi#getPage");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Article-getPage-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Article-getPage-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">
+ArticleApi *apiInstance = [[ArticleApi alloc] init];
+
+// Get one page of articles
+[apiInstance getPageWithCompletionHandler: 
+              ^(array[Article] output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Article-getPage-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var MyBlog = require('my_blog');
+
+var api = new MyBlog.ArticleApi()
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.getPage(callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Article-getPage-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Article-getPage-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class getPageExample
+    {
+        public void main()
+        {
+
+            var apiInstance = new ArticleApi();
+
+            try
+            {
+                // Get one page of articles
+                array[Article] result = apiInstance.getPage();
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling ArticleApi.getPage: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Article-getPage-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\ApiArticleApi();
+
+try {
+    $result = $api_instance->getPage();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ArticleApi->getPage: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Article-getPage-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::ArticleApi;
+
+my $api_instance = WWW::SwaggerClient::ArticleApi->new();
+
+eval { 
+    my $result = $api_instance->getPage();
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling ArticleApi->getPage: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Article-getPage-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.ArticleApi()
+
+try: 
+    # Get one page of articles
+    api_response = api_instance.get_page()
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling ArticleApi->getPage: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - successful operation </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-getPage-200-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-getPage-200-schema">
+                                  <div id='responses-getPage-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "successful operation",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/Article"
+        },
+        "x-content-type" : "application/json"
+      }
+    },
+    "application/xml" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/Article"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-getPage-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-getPage-200-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-getPage-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 400 - Bad Request </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-getPage-400-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-getPage-400-schema">
+                                  <div id='responses-getPage-400-schema-400' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Bad Request",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/ApiResponse"
+      }
+    },
+    "application/xml" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/APiResponse"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-getPage-400-schema-data').val(stringify(schema));
+                                        var result = $('#responses-getPage-400-schema-400');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-getPage-400-schema-data' type='hidden' value=''></input>
                                 </div>
                             </div>
 
@@ -3795,6 +4198,1939 @@ except ApiException as e:
                             </div>
 
                             <h3> Status: 404 - Not Found </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                  </section>
+                <section id="api-Comment">
+                  <h1>Comment</h1>
+                    <div id="api-Comment-addComment">
+                      <article id="api-Comment-addComment-0" data-group="User" data-name="addComment" data-version="0">
+                        <div class="pull-left">
+                          <h1>addComment</h1>
+                          <p>Publish a comment</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/comment/publish</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Comment-addComment-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Comment-addComment-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Comment-addComment-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Comment-addComment-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Comment-addComment-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Comment-addComment-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Comment-addComment-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Comment-addComment-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Comment-addComment-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Comment-addComment-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Comment-addComment-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Comment-addComment-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X POST\
+"https://myblog.swagger.io/v2/comment/publish?content=&title=&id="</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Comment-addComment-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.CommentApi;
+
+import java.io.File;
+import java.util.*;
+
+public class CommentApiExample {
+
+    public static void main(String[] args) {
+        
+        CommentApi apiInstance = new CommentApi();
+          = ; //  | content the comment. 
+          = ; //  | name of the comment publisher. 
+          = ; //  | id of the content which the publisher comments. 
+        try {
+            apiInstance.addComment(, , );
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CommentApi#addComment");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Comment-addComment-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.CommentApi;
+
+public class CommentApiExample {
+
+    public static void main(String[] args) {
+        CommentApi apiInstance = new CommentApi();
+          = ; //  | content the comment. 
+          = ; //  | name of the comment publisher. 
+          = ; //  | id of the content which the publisher comments. 
+        try {
+            apiInstance.addComment(, , );
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CommentApi#addComment");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Comment-addComment-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Comment-addComment-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp"> * = ; // content the comment. 
+ * = ; // name of the comment publisher. 
+ * = ; // id of the content which the publisher comments. 
+
+CommentApi *apiInstance = [[CommentApi alloc] init];
+
+// Publish a comment
+[apiInstance addCommentWith:
+    :
+    :
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Comment-addComment-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var MyBlog = require('my_blog');
+
+var api = new MyBlog.CommentApi()
+var  = ; // {{}} content the comment. 
+var  = ; // {{}} name of the comment publisher. 
+var  = ; // {{}} id of the content which the publisher comments. 
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.addComment(, , , callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Comment-addComment-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Comment-addComment-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class addCommentExample
+    {
+        public void main()
+        {
+
+            var apiInstance = new CommentApi();
+            var  = new (); //  | content the comment. 
+            var  = new (); //  | name of the comment publisher. 
+            var  = new (); //  | id of the content which the publisher comments. 
+
+            try
+            {
+                // Publish a comment
+                apiInstance.addComment(, , );
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling CommentApi.addComment: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Comment-addComment-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\ApiCommentApi();
+$ = ; //  | content the comment. 
+$ = ; //  | name of the comment publisher. 
+$ = ; //  | id of the content which the publisher comments. 
+
+try {
+    $api_instance->addComment($, $, $);
+} catch (Exception $e) {
+    echo 'Exception when calling CommentApi->addComment: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Comment-addComment-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::CommentApi;
+
+my $api_instance = WWW::SwaggerClient::CommentApi->new();
+my $ = ; #  | content the comment. 
+my $ = ; #  | name of the comment publisher. 
+my $ = ; #  | id of the content which the publisher comments. 
+
+eval { 
+    $api_instance->addComment( => $,  => $,  => $);
+};
+if ($@) {
+    warn "Exception when calling CommentApi->addComment: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Comment-addComment-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.CommentApi()
+ =  #  | content the comment. 
+ =  #  | name of the comment publisher. 
+ =  #  | id of the content which the publisher comments. 
+
+try: 
+    # Publish a comment
+    api_instance.add_comment(, , )
+except ApiException as e:
+    print("Exception when calling CommentApi->addComment: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">content*</td>
+                                <td>
+                                
+                                
+                                    <div id="d2e199_addComment_">
+                                        <div class="json-schema-view">
+                                            <div class="primitive">
+                                                <span class="type">
+                                                    
+                                                </span>
+                                
+                                                    <div class="inner description">
+                                                        content the comment. 
+                                                    </div>
+                                            </div>
+                                                <div class="inner required">
+                                                    Required
+                                                </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                </tr>
+                                <tr><td style="width:150px;">title*</td>
+                                <td>
+                                
+                                
+                                    <div id="d2e199_addComment_">
+                                        <div class="json-schema-view">
+                                            <div class="primitive">
+                                                <span class="type">
+                                                    
+                                                </span>
+                                
+                                                    <div class="inner description">
+                                                        name of the comment publisher. 
+                                                    </div>
+                                            </div>
+                                                <div class="inner required">
+                                                    Required
+                                                </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                </tr>
+                                <tr><td style="width:150px;">id*</td>
+                                <td>
+                                
+                                
+                                    <div id="d2e199_addComment_">
+                                        <div class="json-schema-view">
+                                            <div class="primitive">
+                                                <span class="type">
+                                                    
+                                                </span>
+                                
+                                                    <div class="inner description">
+                                                        id of the content which the publisher comments. 
+                                                    </div>
+                                            </div>
+                                                <div class="inner required">
+                                                    Required
+                                                </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                </tr>
+                            </table>
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - successful operation </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 400 - Invalid username supplied </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 404 - User not found </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Comment-deleteComment">
+                      <article id="api-Comment-deleteComment-0" data-group="User" data-name="deleteComment" data-version="0">
+                        <div class="pull-left">
+                          <h1>deleteComment</h1>
+                          <p>delete a comment</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="delete"><code><span class="pln">/comment/{id}</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Comment-deleteComment-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Comment-deleteComment-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Comment-deleteComment-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Comment-deleteComment-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Comment-deleteComment-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Comment-deleteComment-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Comment-deleteComment-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Comment-deleteComment-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Comment-deleteComment-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Comment-deleteComment-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Comment-deleteComment-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Comment-deleteComment-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X DELETE\
+"https://myblog.swagger.io/v2/comment/{id}?id="</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Comment-deleteComment-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.CommentApi;
+
+import java.io.File;
+import java.util.*;
+
+public class CommentApiExample {
+
+    public static void main(String[] args) {
+        
+        CommentApi apiInstance = new CommentApi();
+          = ; //  | id of the comment. 
+        try {
+            apiInstance.deleteComment();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CommentApi#deleteComment");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Comment-deleteComment-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.CommentApi;
+
+public class CommentApiExample {
+
+    public static void main(String[] args) {
+        CommentApi apiInstance = new CommentApi();
+          = ; //  | id of the comment. 
+        try {
+            apiInstance.deleteComment();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CommentApi#deleteComment");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Comment-deleteComment-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Comment-deleteComment-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp"> * = ; // id of the comment. 
+
+CommentApi *apiInstance = [[CommentApi alloc] init];
+
+// delete a comment
+[apiInstance deleteCommentWith:
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Comment-deleteComment-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var MyBlog = require('my_blog');
+
+var api = new MyBlog.CommentApi()
+var  = ; // {{}} id of the comment. 
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.deleteComment(, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Comment-deleteComment-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Comment-deleteComment-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class deleteCommentExample
+    {
+        public void main()
+        {
+
+            var apiInstance = new CommentApi();
+            var  = new (); //  | id of the comment. 
+
+            try
+            {
+                // delete a comment
+                apiInstance.deleteComment();
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling CommentApi.deleteComment: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Comment-deleteComment-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\ApiCommentApi();
+$ = ; //  | id of the comment. 
+
+try {
+    $api_instance->deleteComment($);
+} catch (Exception $e) {
+    echo 'Exception when calling CommentApi->deleteComment: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Comment-deleteComment-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::CommentApi;
+
+my $api_instance = WWW::SwaggerClient::CommentApi->new();
+my $ = ; #  | id of the comment. 
+
+eval { 
+    $api_instance->deleteComment( => $);
+};
+if ($@) {
+    warn "Exception when calling CommentApi->deleteComment: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Comment-deleteComment-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.CommentApi()
+ =  #  | id of the comment. 
+
+try: 
+    # delete a comment
+    api_instance.delete_comment()
+except ApiException as e:
+    print("Exception when calling CommentApi->deleteComment: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">id*</td>
+                                <td>
+                                
+                                
+                                    <div id="d2e199_deleteComment_">
+                                        <div class="json-schema-view">
+                                            <div class="primitive">
+                                                <span class="type">
+                                                    
+                                                </span>
+                                
+                                                    <div class="inner description">
+                                                        id of the comment. 
+                                                    </div>
+                                            </div>
+                                                <div class="inner required">
+                                                    Required
+                                                </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                </tr>
+                            </table>
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - successful operation </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 400 - Invalid username supplied </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 404 - User not found </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Comment-getCommentById">
+                      <article id="api-Comment-getCommentById-0" data-group="User" data-name="getCommentById" data-version="0">
+                        <div class="pull-left">
+                          <h1>getCommentById</h1>
+                          <p>Get comments of an article</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/comment/id/{id}</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Comment-getCommentById-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Comment-getCommentById-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Comment-getCommentById-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Comment-getCommentById-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Comment-getCommentById-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Comment-getCommentById-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Comment-getCommentById-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Comment-getCommentById-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Comment-getCommentById-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Comment-getCommentById-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Comment-getCommentById-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Comment-getCommentById-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X GET\
+"https://myblog.swagger.io/v2/comment/id/{id}"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Comment-getCommentById-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.CommentApi;
+
+import java.io.File;
+import java.util.*;
+
+public class CommentApiExample {
+
+    public static void main(String[] args) {
+        
+        CommentApi apiInstance = new CommentApi();
+          = ; //  | id of the article. 
+        try {
+            apiInstance.getCommentById();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CommentApi#getCommentById");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Comment-getCommentById-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.CommentApi;
+
+public class CommentApiExample {
+
+    public static void main(String[] args) {
+        CommentApi apiInstance = new CommentApi();
+          = ; //  | id of the article. 
+        try {
+            apiInstance.getCommentById();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CommentApi#getCommentById");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Comment-getCommentById-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Comment-getCommentById-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp"> * = ; // id of the article. 
+
+CommentApi *apiInstance = [[CommentApi alloc] init];
+
+// Get comments of an article
+[apiInstance getCommentByIdWith:
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Comment-getCommentById-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var MyBlog = require('my_blog');
+
+var api = new MyBlog.CommentApi()
+var  = ; // {{}} id of the article. 
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.getCommentById(, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Comment-getCommentById-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Comment-getCommentById-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class getCommentByIdExample
+    {
+        public void main()
+        {
+
+            var apiInstance = new CommentApi();
+            var  = new (); //  | id of the article. 
+
+            try
+            {
+                // Get comments of an article
+                apiInstance.getCommentById();
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling CommentApi.getCommentById: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Comment-getCommentById-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\ApiCommentApi();
+$ = ; //  | id of the article. 
+
+try {
+    $api_instance->getCommentById($);
+} catch (Exception $e) {
+    echo 'Exception when calling CommentApi->getCommentById: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Comment-getCommentById-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::CommentApi;
+
+my $api_instance = WWW::SwaggerClient::CommentApi->new();
+my $ = ; #  | id of the article. 
+
+eval { 
+    $api_instance->getCommentById( => $);
+};
+if ($@) {
+    warn "Exception when calling CommentApi->getCommentById: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Comment-getCommentById-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.CommentApi()
+ =  #  | id of the article. 
+
+try: 
+    # Get comments of an article
+    api_instance.get_comment_by_id()
+except ApiException as e:
+    print("Exception when calling CommentApi->getCommentById: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">id*</td>
+                                  <td>
+                                  
+                                  
+                                      <div id="d2e199_getCommentById_">
+                                          <div class="json-schema-view">
+                                              <div class="primitive">
+                                                  <span class="type">
+                                                      
+                                                  </span>
+                                  
+                                                      <div class="inner description">
+                                                          id of the article. 
+                                                      </div>
+                                              </div>
+                                                  <div class="inner required">
+                                                      Required
+                                                  </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </tr>
+                            </table>
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - successful operation </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 400 - Invalid username supplied </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 404 - User not found </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Comment-modifyComment">
+                      <article id="api-Comment-modifyComment-0" data-group="User" data-name="modifyComment" data-version="0">
+                        <div class="pull-left">
+                          <h1>modifyComment</h1>
+                          <p>modify a comment</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="put"><code><span class="pln">/comment/{id}</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Comment-modifyComment-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Comment-modifyComment-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Comment-modifyComment-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Comment-modifyComment-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Comment-modifyComment-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Comment-modifyComment-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Comment-modifyComment-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Comment-modifyComment-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Comment-modifyComment-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Comment-modifyComment-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Comment-modifyComment-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Comment-modifyComment-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X PUT\
+"https://myblog.swagger.io/v2/comment/{id}?content="</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Comment-modifyComment-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.CommentApi;
+
+import java.io.File;
+import java.util.*;
+
+public class CommentApiExample {
+
+    public static void main(String[] args) {
+        
+        CommentApi apiInstance = new CommentApi();
+          = ; //  | content of the comment. 
+        try {
+            apiInstance.modifyComment();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CommentApi#modifyComment");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Comment-modifyComment-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.CommentApi;
+
+public class CommentApiExample {
+
+    public static void main(String[] args) {
+        CommentApi apiInstance = new CommentApi();
+          = ; //  | content of the comment. 
+        try {
+            apiInstance.modifyComment();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CommentApi#modifyComment");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Comment-modifyComment-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Comment-modifyComment-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp"> * = ; // content of the comment. 
+
+CommentApi *apiInstance = [[CommentApi alloc] init];
+
+// modify a comment
+[apiInstance modifyCommentWith:
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Comment-modifyComment-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var MyBlog = require('my_blog');
+
+var api = new MyBlog.CommentApi()
+var  = ; // {{}} content of the comment. 
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.modifyComment(, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Comment-modifyComment-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Comment-modifyComment-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class modifyCommentExample
+    {
+        public void main()
+        {
+
+            var apiInstance = new CommentApi();
+            var  = new (); //  | content of the comment. 
+
+            try
+            {
+                // modify a comment
+                apiInstance.modifyComment();
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling CommentApi.modifyComment: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Comment-modifyComment-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\ApiCommentApi();
+$ = ; //  | content of the comment. 
+
+try {
+    $api_instance->modifyComment($);
+} catch (Exception $e) {
+    echo 'Exception when calling CommentApi->modifyComment: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Comment-modifyComment-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::CommentApi;
+
+my $api_instance = WWW::SwaggerClient::CommentApi->new();
+my $ = ; #  | content of the comment. 
+
+eval { 
+    $api_instance->modifyComment( => $);
+};
+if ($@) {
+    warn "Exception when calling CommentApi->modifyComment: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Comment-modifyComment-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.CommentApi()
+ =  #  | content of the comment. 
+
+try: 
+    # modify a comment
+    api_instance.modify_comment()
+except ApiException as e:
+    print("Exception when calling CommentApi->modifyComment: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">content*</td>
+                                <td>
+                                
+                                
+                                    <div id="d2e199_modifyComment_">
+                                        <div class="json-schema-view">
+                                            <div class="primitive">
+                                                <span class="type">
+                                                    
+                                                </span>
+                                
+                                                    <div class="inner description">
+                                                        content of the comment. 
+                                                    </div>
+                                            </div>
+                                                <div class="inner required">
+                                                    Required
+                                                </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                </tr>
+                            </table>
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - successful operation </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 400 - Invalid username supplied </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 404 - User not found </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                  </section>
+                <section id="api-Like">
+                  <h1>Like</h1>
+                    <div id="api-Like-getLikeById">
+                      <article id="api-Like-getLikeById-0" data-group="User" data-name="getLikeById" data-version="0">
+                        <div class="pull-left">
+                          <h1>getLikeById</h1>
+                          <p>Get likes of an article</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/like/id/{id}</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Like-getLikeById-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Like-getLikeById-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Like-getLikeById-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Like-getLikeById-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Like-getLikeById-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Like-getLikeById-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Like-getLikeById-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Like-getLikeById-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Like-getLikeById-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Like-getLikeById-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Like-getLikeById-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Like-getLikeById-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X GET\
+"https://myblog.swagger.io/v2/like/id/{id}"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Like-getLikeById-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.LikeApi;
+
+import java.io.File;
+import java.util.*;
+
+public class LikeApiExample {
+
+    public static void main(String[] args) {
+        
+        LikeApi apiInstance = new LikeApi();
+          = ; //  | id of the article. 
+        try {
+            apiInstance.getLikeById();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling LikeApi#getLikeById");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Like-getLikeById-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.LikeApi;
+
+public class LikeApiExample {
+
+    public static void main(String[] args) {
+        LikeApi apiInstance = new LikeApi();
+          = ; //  | id of the article. 
+        try {
+            apiInstance.getLikeById();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling LikeApi#getLikeById");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Like-getLikeById-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Like-getLikeById-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp"> * = ; // id of the article. 
+
+LikeApi *apiInstance = [[LikeApi alloc] init];
+
+// Get likes of an article
+[apiInstance getLikeByIdWith:
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Like-getLikeById-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var MyBlog = require('my_blog');
+
+var api = new MyBlog.LikeApi()
+var  = ; // {{}} id of the article. 
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.getLikeById(, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Like-getLikeById-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Like-getLikeById-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class getLikeByIdExample
+    {
+        public void main()
+        {
+
+            var apiInstance = new LikeApi();
+            var  = new (); //  | id of the article. 
+
+            try
+            {
+                // Get likes of an article
+                apiInstance.getLikeById();
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling LikeApi.getLikeById: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Like-getLikeById-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\ApiLikeApi();
+$ = ; //  | id of the article. 
+
+try {
+    $api_instance->getLikeById($);
+} catch (Exception $e) {
+    echo 'Exception when calling LikeApi->getLikeById: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Like-getLikeById-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::LikeApi;
+
+my $api_instance = WWW::SwaggerClient::LikeApi->new();
+my $ = ; #  | id of the article. 
+
+eval { 
+    $api_instance->getLikeById( => $);
+};
+if ($@) {
+    warn "Exception when calling LikeApi->getLikeById: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Like-getLikeById-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.LikeApi()
+ =  #  | id of the article. 
+
+try: 
+    # Get likes of an article
+    api_instance.get_like_by_id()
+except ApiException as e:
+    print("Exception when calling LikeApi->getLikeById: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">id*</td>
+                                  <td>
+                                  
+                                  
+                                      <div id="d2e199_getLikeById_">
+                                          <div class="json-schema-view">
+                                              <div class="primitive">
+                                                  <span class="type">
+                                                      
+                                                  </span>
+                                  
+                                                      <div class="inner description">
+                                                          id of the article. 
+                                                      </div>
+                                              </div>
+                                                  <div class="inner required">
+                                                      Required
+                                                  </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </tr>
+                            </table>
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - successful operation </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 400 - Invalid username supplied </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 404 - User not found </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Like-likeit">
+                      <article id="api-Like-likeit-0" data-group="User" data-name="likeit" data-version="0">
+                        <div class="pull-left">
+                          <h1>likeit</h1>
+                          <p>Like an article</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/like/likeit</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Like-likeit-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Like-likeit-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Like-likeit-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Like-likeit-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Like-likeit-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Like-likeit-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Like-likeit-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Like-likeit-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Like-likeit-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Like-likeit-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Like-likeit-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Like-likeit-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X POST\
+"https://myblog.swagger.io/v2/like/likeit?liker=&id="</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Like-likeit-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.LikeApi;
+
+import java.io.File;
+import java.util.*;
+
+public class LikeApiExample {
+
+    public static void main(String[] args) {
+        
+        LikeApi apiInstance = new LikeApi();
+        String liker = liker_example; // String | liker
+        String id = id_example; // String | id of the content which the liker likes
+        try {
+            apiInstance.likeit(liker, id);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling LikeApi#likeit");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Like-likeit-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.LikeApi;
+
+public class LikeApiExample {
+
+    public static void main(String[] args) {
+        LikeApi apiInstance = new LikeApi();
+        String liker = liker_example; // String | liker
+        String id = id_example; // String | id of the content which the liker likes
+        try {
+            apiInstance.likeit(liker, id);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling LikeApi#likeit");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Like-likeit-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Like-likeit-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">String *liker = liker_example; // liker
+String *id = id_example; // id of the content which the liker likes
+
+LikeApi *apiInstance = [[LikeApi alloc] init];
+
+// Like an article
+[apiInstance likeitWith:liker
+    id:id
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Like-likeit-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var MyBlog = require('my_blog');
+
+var api = new MyBlog.LikeApi()
+var liker = liker_example; // {{String}} liker
+var id = id_example; // {{String}} id of the content which the liker likes
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.likeit(liker, id, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Like-likeit-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Like-likeit-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class likeitExample
+    {
+        public void main()
+        {
+
+            var apiInstance = new LikeApi();
+            var liker = liker_example;  // String | liker
+            var id = id_example;  // String | id of the content which the liker likes
+
+            try
+            {
+                // Like an article
+                apiInstance.likeit(liker, id);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling LikeApi.likeit: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Like-likeit-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\ApiLikeApi();
+$liker = liker_example; // String | liker
+$id = id_example; // String | id of the content which the liker likes
+
+try {
+    $api_instance->likeit($liker, $id);
+} catch (Exception $e) {
+    echo 'Exception when calling LikeApi->likeit: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Like-likeit-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::LikeApi;
+
+my $api_instance = WWW::SwaggerClient::LikeApi->new();
+my $liker = liker_example; # String | liker
+my $id = id_example; # String | id of the content which the liker likes
+
+eval { 
+    $api_instance->likeit(liker => $liker, id => $id);
+};
+if ($@) {
+    warn "Exception when calling LikeApi->likeit: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Like-likeit-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.LikeApi()
+liker = liker_example # String | liker
+id = id_example # String | id of the content which the liker likes
+
+try: 
+    # Like an article
+    api_instance.likeit(liker, id)
+except ApiException as e:
+    print("Exception when calling LikeApi->likeit: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">liker*</td>
+                                <td>
+                                
+                                
+                                    <div id="d2e199_likeit_liker">
+                                        <div class="json-schema-view">
+                                            <div class="primitive">
+                                                <span class="type">
+                                                    String
+                                                </span>
+                                
+                                                    <div class="inner description">
+                                                        liker
+                                                    </div>
+                                            </div>
+                                                <div class="inner required">
+                                                    Required
+                                                </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                </tr>
+                                <tr><td style="width:150px;">id*</td>
+                                <td>
+                                
+                                
+                                    <div id="d2e199_likeit_id">
+                                        <div class="json-schema-view">
+                                            <div class="primitive">
+                                                <span class="type">
+                                                    String
+                                                </span>
+                                
+                                                    <div class="inner description">
+                                                        id of the content which the liker likes
+                                                    </div>
+                                            </div>
+                                                <div class="inner required">
+                                                    Required
+                                                </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                </tr>
+                            </table>
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - successful operation </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 400 - Invalid username supplied </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 404 - User not found </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Like-unlikeit">
+                      <article id="api-Like-unlikeit-0" data-group="User" data-name="unlikeit" data-version="0">
+                        <div class="pull-left">
+                          <h1>unlikeit</h1>
+                          <p>Unlike an article</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="delete"><code><span class="pln">/like/{lid}</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Like-unlikeit-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Like-unlikeit-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Like-unlikeit-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Like-unlikeit-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Like-unlikeit-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Like-unlikeit-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Like-unlikeit-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Like-unlikeit-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Like-unlikeit-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Like-unlikeit-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Like-unlikeit-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Like-unlikeit-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X DELETE\
+"https://myblog.swagger.io/v2/like/{lid}"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Like-unlikeit-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.LikeApi;
+
+import java.io.File;
+import java.util.*;
+
+public class LikeApiExample {
+
+    public static void main(String[] args) {
+        
+        LikeApi apiInstance = new LikeApi();
+          = ; //  | id of the like. 
+        try {
+            apiInstance.unlikeit();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling LikeApi#unlikeit");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Like-unlikeit-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.LikeApi;
+
+public class LikeApiExample {
+
+    public static void main(String[] args) {
+        LikeApi apiInstance = new LikeApi();
+          = ; //  | id of the like. 
+        try {
+            apiInstance.unlikeit();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling LikeApi#unlikeit");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Like-unlikeit-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Like-unlikeit-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp"> * = ; // id of the like. 
+
+LikeApi *apiInstance = [[LikeApi alloc] init];
+
+// Unlike an article
+[apiInstance unlikeitWith:
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Like-unlikeit-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var MyBlog = require('my_blog');
+
+var api = new MyBlog.LikeApi()
+var  = ; // {{}} id of the like. 
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.unlikeit(, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Like-unlikeit-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Like-unlikeit-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class unlikeitExample
+    {
+        public void main()
+        {
+
+            var apiInstance = new LikeApi();
+            var  = new (); //  | id of the like. 
+
+            try
+            {
+                // Unlike an article
+                apiInstance.unlikeit();
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling LikeApi.unlikeit: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Like-unlikeit-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\ApiLikeApi();
+$ = ; //  | id of the like. 
+
+try {
+    $api_instance->unlikeit($);
+} catch (Exception $e) {
+    echo 'Exception when calling LikeApi->unlikeit: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Like-unlikeit-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::LikeApi;
+
+my $api_instance = WWW::SwaggerClient::LikeApi->new();
+my $ = ; #  | id of the like. 
+
+eval { 
+    $api_instance->unlikeit( => $);
+};
+if ($@) {
+    warn "Exception when calling LikeApi->unlikeit: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Like-unlikeit-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.LikeApi()
+ =  #  | id of the like. 
+
+try: 
+    # Unlike an article
+    api_instance.unlikeit()
+except ApiException as e:
+    print("Exception when calling LikeApi->unlikeit: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">lid*</td>
+                                  <td>
+                                  
+                                  
+                                      <div id="d2e199_unlikeit_">
+                                          <div class="json-schema-view">
+                                              <div class="primitive">
+                                                  <span class="type">
+                                                      
+                                                  </span>
+                                  
+                                                      <div class="inner description">
+                                                          id of the like. 
+                                                      </div>
+                                              </div>
+                                                  <div class="inner required">
+                                                      Required
+                                                  </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </tr>
+                            </table>
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - successful operation </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 400 - Invalid username supplied </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 404 - User not found </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                             </ul>
